@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     loadProductTable();
 
     document.getElementById("send-new-product").addEventListener('click', function (e) {
-        sendNewProduct();
+        addProduct();
     });
 }, false);
 
@@ -51,22 +51,12 @@ function sendEditProductToSave(childNodes) {
         'price' : editPrice
     });
 
-    xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState === XMLHttpRequest.DONE) {
-            if (xmlhttp.status === 200) {
-                childNodes[1].innerHTML = editName;
-                childNodes[2].innerHTML = editPrice;
-                childNodes[3].innerHTML = `<button class="edit">Edit</button>`;
-                setOnclickToEditButton();
-            } else {
-                alert('sendEditProductToSave');
-            }
-        }
-    };
+    sendUpdatedProduct(data);
 
-    xmlhttp.open("POST", "/api/products/edit", false);
-    xmlhttp.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-    xmlhttp.send(data);
+    childNodes[1].innerHTML = editName;
+    childNodes[2].innerHTML = editPrice;
+    childNodes[3].innerHTML = `<button class="edit">Edit</button>`;
+    setOnclickToEditButton();
 }
 
 function cancelEditProduct(childNodes, editName, editPrice) {
@@ -86,22 +76,9 @@ function loadProductTable() {
         currentPage = 1;
     }
 
-    let xmlhttp = new XMLHttpRequest();
-
-    xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState === XMLHttpRequest.DONE) {
-            if (xmlhttp.status === 200) {
-                document.getElementById("productTable").innerHTML = parseProductJsonToHtmlTable(JSON.parse(xmlhttp.responseText));
-                setOnclickToEditButton();
-                loadPaginationPanel(currentPage);
-            } else {
-                alert('loadProductTable');
-            }
-        }
-    };
-
-    xmlhttp.open("GET", "/api/products?" + "page=" + currentPage, false);
-    xmlhttp.send();
+    document.getElementById("productTable").innerHTML = parseProductJsonToHtmlTable(getProductListByNumberPageFromServer(currentPage));
+    setOnclickToEditButton();
+    loadPaginationPanel(currentPage);
 }
 
 function parseProductJsonToHtmlTable(productJson) {
@@ -112,28 +89,8 @@ function parseProductJsonToHtmlTable(productJson) {
     return htmlRows;
 }
 
-function getCountOfPages() {
-    let countOfPages;
-    var xmlhttp = new XMLHttpRequest();
-
-    xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState === XMLHttpRequest.DONE) {
-            if (xmlhttp.status === 200) {
-                countOfPages = JSON.parse(xmlhttp.responseText);
-            } else {
-                alert('getCountOfPages');
-            }
-        }
-    };
-
-    xmlhttp.open("GET", "/api/products/pagination", false);
-    xmlhttp.send();
-
-    return countOfPages;
-}
-
 function loadPaginationPanel(currentPage){
-    let countOfPage = getCountOfPages();
+    let countOfPage = getCountOfPagesFromServer();
 
     if (currentPage > countOfPage || currentPage === undefined) {
         currentPage = countOfPage;
@@ -183,32 +140,21 @@ function loadPaginationPanel(currentPage){
     }
 }
 
-function sendNewProduct() {
+function addProduct() {
     let newProductName = document.getElementById("new-name").value;
     let newProductPrice = document.getElementById("new-price").value;
 
     let data = JSON.stringify({
         'name' : newProductName,
         'price' : newProductPrice
-    });
+    })
 
-    var xmlhttp = new XMLHttpRequest();
+    sendAddedProduct(data);
 
-    xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState === XMLHttpRequest.DONE) {
-            if (xmlhttp.status === 200) {
-                document.getElementById("new-name").value = "";
-                document.getElementById("new-price").value = "";
-                reloadTableToPage()
-            } else {
-                alert("sendNewProduct")
-            }
-        }
-    };
+    document.getElementById("new-name").value = "";
+    document.getElementById("new-price").value = "";
+    reloadTableToPage()
 
-    xmlhttp.open("POST", "/api/products/add", true);
-    xmlhttp.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-    xmlhttp.send(data);
 }
 
 function reloadTableToPage(page) {

@@ -27,7 +27,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
 	@Override
 	public List<Product> getProductsOnPage(int pageIndex, int countOnPage) {
-		Query query =  entityManager.createQuery("from Product ORDER BY id", Product.class);
+		Query query =  entityManager.createQuery("from Product order by id", Product.class);
 		query.setMaxResults(countOnPage);
 		query.setFirstResult((pageIndex-1) * countOnPage);
 		return query.getResultList();

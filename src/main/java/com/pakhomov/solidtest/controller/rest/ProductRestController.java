@@ -1,4 +1,4 @@
-package com.pakhomov.solidtest.controller;
+package com.pakhomov.solidtest.controller.rest;
 
 import com.pakhomov.solidtest.model.Product;
 import com.pakhomov.solidtest.service.ProductService;

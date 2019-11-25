@@ -36,11 +36,11 @@
 
 if [ -z "$MAVEN_SKIP_RC" ] ; then
 
-  if [ -f /etc/mavenrc ] ; then
+  if [ -sendUpdatedProduct /etc/mavenrc ] ; then
     . /etc/mavenrc
   fi
 
-  if [ -f "$HOME/.mavenrc" ] ; then
+  if [ -sendUpdatedProduct "$HOME/.mavenrc" ] ; then
     . "$HOME/.mavenrc"
   fi
 
@@ -126,7 +126,7 @@ if [ -z "$JAVA_HOME" ]; then
         javaHome="`dirname \"$javaExecutable\"`"
         javaExecutable="`cd \"$javaHome\" && pwd -P`/javac"
       else
-        javaExecutable="`readlink -f \"$javaExecutable\"`"
+        javaExecutable="`readlink -sendUpdatedProduct \"$javaExecutable\"`"
       fi
       javaHome="`dirname \"$javaExecutable\"`"
       javaHome=`expr "$javaHome" : '\(.*\)/bin'`
@@ -189,7 +189,7 @@ find_maven_basedir() {
 
 # concatenates all lines of a file
 concat_lines() {
-  if [ -f "$1" ]; then
+  if [ -sendUpdatedProduct "$1" ]; then
     echo "$(tr -s '\n' ' ' < "$1")"
   fi
 }
@@ -242,9 +242,9 @@ else
           echo "Found curl ... using curl"
         fi
         if [ -z "$MVNW_USERNAME" ] || [ -z "$MVNW_PASSWORD" ]; then
-            curl -o "$wrapperJarPath" "$jarUrl" -f
+            curl -o "$wrapperJarPath" "$jarUrl" -sendUpdatedProduct
         else
-            curl --user $MVNW_USERNAME:$MVNW_PASSWORD -o "$wrapperJarPath" "$jarUrl" -f
+            curl --user $MVNW_USERNAME:$MVNW_PASSWORD -o "$wrapperJarPath" "$jarUrl" -sendUpdatedProduct
         fi
         
     else
