@@ -1,5 +1,6 @@
 class PaginationService {
-    getPaginationPanelHtml(currentPage, countOfPage) {
+
+    static getPaginationPanelHtml(currentPage, countOfPage) {
         if (currentPage > countOfPage || currentPage === undefined) {
             currentPage = countOfPage;
         }
@@ -30,13 +31,12 @@ class PaginationService {
                             </a>
                         </li>`;
         }
-        const htmlElement = `<nav aria-label="Page navigation example">
+        return `<nav aria-label="Page navigation example">
                             <ul class="pagination">
                             ${prevElement}
                             ${currentElement}
                             ${nextElement}
                             </ul>
                         </nav>`;
-        return htmlElement;
     }
 }
