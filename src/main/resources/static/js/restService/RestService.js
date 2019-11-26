@@ -15,7 +15,7 @@ class RestService {
                 if (xmlhttp.status === 200) {
                     productList = JSON.parse(xmlhttp.responseText);
                 } else {
-                    console.log('loadProductTable');
+                    console.log('getListByPage');
                 }
             }
         };

@@ -3,7 +3,7 @@
     const paginationService = new PaginationService();
 
     document.addEventListener('DOMContentLoaded', function () {
-        loadProductTable();
+        loadTable();
 
         document.getElementById("send-new-product").addEventListener('click', function (e) {
             addProduct();
@@ -65,7 +65,7 @@
         setOnclickToEditButton();
     }
 
-    function loadProductTable() {
+    function loadTable() {
         const url = new URL(window.location.href);
         const params = new URLSearchParams(url.search.slice(1));
         let currentPage;
@@ -81,12 +81,12 @@
             currentPage = 1;
         }
 
-        document.getElementById("productTable").innerHTML = parseProductJsonToHtmlTable(productRestService.getListByPage(currentPage));
+        document.getElementById("tableBody").innerHTML = parseJsonToHtmlTable(productRestService.getListByPage(currentPage));
         setOnclickToEditButton();
         loadPagination(currentPage);
     }
 
-    function parseProductJsonToHtmlTable(productJson) {
+    function parseJsonToHtmlTable(productJson) {
         let htmlRows = "";
         productJson.forEach(product => htmlRows += `<tr><td>${product.id}</td><td>${product.name}</td><td>${product.price}</td><td><button class="edit">Edit</button></td></tr>`);
         return htmlRows;
@@ -122,7 +122,7 @@
 
     function reloadTableToPage(page) {
         if (page === undefined) {
-            loadProductTable();
+            loadTable();
             return;
         }
         const url = new URL(window.location.href);
@@ -132,6 +132,6 @@
 
         const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + params.toString();
         window.history.pushState({path: newUrl}, '', newUrl);
-        loadProductTable();
+        loadTable();
     }
 }

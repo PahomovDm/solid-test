@@ -16,6 +16,11 @@ public class DiscountRepositoryImpl implements DiscountRepository {
 	private EntityManager entityManager;
 
 	@Override
+	public Long getCountOfDiscounts() {
+		return entityManager.createQuery("select count(*) from Discount", Long.class).getSingleResult();
+	}
+
+	@Override
 	public Discount getLastDiscount() {
 		return entityManager.createQuery("from Discount where startTime = (select max(startTime) from Discount)", Discount.class).getSingleResult();
 	}
