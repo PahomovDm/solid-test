@@ -21,7 +21,7 @@ public class DiscountRestController {
 
 	@PostMapping
 	public ResponseEntity createNewDiscount() {
-		discountService.createRandomDiscount();
+		discountService.createRandomProductDiscountWithMinAndMaxPercent(Discount.MIN_DISCOUNT_PERCENT, Discount.MAX_DISCOUNT_PERCENT);
 		return ResponseEntity.ok().build();
 	}
 

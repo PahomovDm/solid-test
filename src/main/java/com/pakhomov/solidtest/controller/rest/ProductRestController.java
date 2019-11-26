@@ -11,7 +11,7 @@ import java.util.List;
 @RequestMapping("/api/products")
 public class ProductRestController {
 
-    private final static int COUNT_ON_PAGE = 10;
+    public final static int COUNT_ON_PAGE = 10;
 
     private final ProductService productService;
 

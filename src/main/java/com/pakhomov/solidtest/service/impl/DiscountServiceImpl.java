@@ -22,8 +22,8 @@ public class DiscountServiceImpl implements DiscountService {
 		return discountRepository.getLastDiscount();
 	}
 
-	public void createRandomDiscount() {
-		discountRepository.createRandomDiscount();
+	public void createRandomProductDiscountWithMinAndMaxPercent(int minDiscountPercent, int maxDiscountPercent) {
+		discountRepository.createRandomProductDiscountWithMinAndMaxPercent(minDiscountPercent, maxDiscountPercent);
 	}
 
 }

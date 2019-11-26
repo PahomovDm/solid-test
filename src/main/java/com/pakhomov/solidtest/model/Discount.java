@@ -9,6 +9,9 @@ import java.util.Objects;
 @Table(name = "discounts")
 public class Discount {
 
+	public final static int MIN_DISCOUNT_PERCENT = 5;
+	public final static int MAX_DISCOUNT_PERCENT = 10;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

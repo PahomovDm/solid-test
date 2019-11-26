@@ -8,7 +8,7 @@ public interface DiscountRepository {
 
 	Discount getLastDiscount();
 
-	void createRandomDiscount();
+	void createRandomProductDiscountWithMinAndMaxPercent(int minDiscountPercent, int maxDiscountPercent);
 
 	List<Discount> getDiscountOnPage(int pageIndex, int countOnPage);
 }

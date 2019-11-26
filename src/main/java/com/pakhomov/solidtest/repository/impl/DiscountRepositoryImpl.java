@@ -21,12 +21,13 @@ public class DiscountRepositoryImpl implements DiscountRepository {
 	}
 
 	@Override
-	public void createRandomDiscount() {
+	public void createRandomProductDiscountWithMinAndMaxPercent(int minDiscountPercent, int maxDiscountPercent) {
 		entityManager.createNativeQuery("insert into discounts(size, start_time, product_id) " +
-				"values ((select floor(random() * (10 - 5 + 1)) + 5), current_timestamp, (select id " +
+				"values ((select floor(random() * (:max - :min + 1)) + :min), current_timestamp, (select id " +
 				"                                                                         from products " +
 				"                                                                         order by random() " +
-				"                                                                         LIMIT 1))").executeUpdate();
+				"                                                                         LIMIT 1))")
+				.setParameter("min", minDiscountPercent).setParameter("max", maxDiscountPercent).executeUpdate();
 	}
 
 

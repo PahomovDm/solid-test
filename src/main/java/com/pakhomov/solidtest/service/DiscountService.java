@@ -6,5 +6,5 @@ public interface DiscountService {
 
 	Discount getLastDiscount();
 
-	void createRandomDiscount();
+	void createRandomProductDiscountWithMinAndMaxPercent(int minDiscountPercent, int maxDiscountPercent);
 }
