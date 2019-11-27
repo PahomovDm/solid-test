@@ -21,7 +21,10 @@ class PageService {
             currentPage = 1;
         }
 
-        document.getElementById("tableBody").innerHTML = this.parser(this.restService.getListByPage(currentPage));
+        const tableContent = this.restService.getListByPage(currentPage);
+        if (tableContent !== undefined) {
+            document.getElementById("tableBody").innerHTML = this.parser(this.restService.getListByPage(currentPage));
+        }
         this.loadPagination(currentPage);
     }
 
