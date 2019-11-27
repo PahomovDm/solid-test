@@ -22,7 +22,10 @@
                     <a class="nav-link" href="/">Товары<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/discounts">Продажи</a>
+                    <a class="nav-link" href="/discounts">Скидки</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/sales">Продажи</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Отчет</a>
@@ -55,7 +58,7 @@
                     <div>
                         <input id="new-name" type="text"/>
                         <input id="new-price" type="number"/>
-                        <input type="submit" value="Добавить" id="send-new-product"/>
+                        <input type="submit" class="btn btn-primary" value="Добавить" id="send-new-product"/>
                     </div>
                 </div>
             </div>
@@ -78,7 +81,7 @@
         crossorigin="anonymous"></script>
 <script src="js/restService/RestService.js"></script>
 <script src="js/restService/ProductRestService.js"></script>
-<script src="js/PaginationService.js"></script>
-<script src="js/PageService.js"></script>
-<script src="js/ProductPageService.js"></script>
+<script src="js/pageService/PaginationService.js"></script>
+<script src="js/pageService/PageService.js"></script>
+<script src="js/pageService/ProductPageService.js"></script>
 </html>

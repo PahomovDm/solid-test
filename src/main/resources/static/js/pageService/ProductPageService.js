@@ -26,7 +26,7 @@ class ProductPageService extends PageService{
 
     static parseJsonToHtmlTable(productJson) {
         let htmlRows = "";
-        productJson.forEach(product => htmlRows += `<tr><td>${product.id}</td><td>${product.name}</td><td>${product.price}</td><td><button class="edit">Edit</button></td></tr>`);
+        productJson.forEach(product => htmlRows += `<tr><td>${product.id}</td><td>${product.name}</td><td>${product.price}  &#8381</td><td><button class="edit btn btn-primary">Edit</button></td></tr>`);
         return htmlRows;
     }
 
@@ -36,7 +36,7 @@ class ProductPageService extends PageService{
 
         childNodes[1].innerHTML = `<input id="editName" value='${editName}'/>`;
         childNodes[2].innerHTML = `<input id="editPrice" value='${editPrice}'/>`;
-        childNodes[3].innerHTML = `<button class="sendEdit">Save</button><button class="cancel">Cancel</button>`;
+        childNodes[3].innerHTML = `<button class="sendEdit btn btn-primary">Save</button><button class="cancel btn btn-primary">Cancel</button>`;
 
         const editButtons = document.getElementsByClassName("sendEdit");
         const cancelButtons = document.getElementsByClassName("cancel");
@@ -58,7 +58,7 @@ class ProductPageService extends PageService{
     cancelEditFormProduct(childNodes, editName, editPrice) {
         childNodes[1].innerHTML = editName;
         childNodes[2].innerHTML = editPrice;
-        childNodes[3].innerHTML = `<button class="edit">Edit</button>`;
+        childNodes[3].innerHTML = `<button class="edit btn btn-primary">Edit</button>`;
 
         this.setOnclickToEditButton();
     }

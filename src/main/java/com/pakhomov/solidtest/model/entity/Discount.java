@@ -1,4 +1,4 @@
-package com.pakhomov.solidtest.model;
+package com.pakhomov.solidtest.model.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

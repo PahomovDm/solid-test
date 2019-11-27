@@ -1,5 +1,15 @@
 package com.pakhomov.solidtest.service;
 
-public interface ShoppingCart {
+import com.pakhomov.solidtest.model.entity.Position;
+import com.pakhomov.solidtest.model.entity.ShoppingCart;
 
+public interface ShoppingCartService {
+
+	ShoppingCart getShoppingCartBySessionID(String sessionID);
+
+	void saveShoppingCart(ShoppingCart shoppingCart);
+
+	void addPositionToShoppingCartBySessionID(String sessionID, Position position);
+
+	void clearShoppingCartBySessionID(String sessionID);
 }

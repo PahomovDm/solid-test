@@ -1,6 +1,6 @@
 package com.pakhomov.solidtest.repository;
 
-import com.pakhomov.solidtest.model.Discount;
+import com.pakhomov.solidtest.model.entity.Discount;
 
 import java.util.List;
 

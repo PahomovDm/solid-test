@@ -1,5 +1,5 @@
 package com.pakhomov.solidtest.exception;
 
-public class EmptyChoppingCartException {
+public class EmptyShoppingCartException extends Exception {
 
 }

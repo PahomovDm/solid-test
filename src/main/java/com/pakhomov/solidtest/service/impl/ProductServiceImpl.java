@@ -1,6 +1,6 @@
 package com.pakhomov.solidtest.service.impl;
 
-import com.pakhomov.solidtest.model.Product;
+import com.pakhomov.solidtest.model.entity.Product;
 import com.pakhomov.solidtest.repository.ProductRepository;
 import com.pakhomov.solidtest.service.ProductService;
 import org.springframework.stereotype.Service;

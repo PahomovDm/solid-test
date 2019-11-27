@@ -11,12 +11,13 @@ public class PageController {
 		return "products";
 	}
 
-	public String purchasePage() {
-		return "purchases";
-	}
-
 	@GetMapping("/discounts")
 	public String discountPage() {
 		return "discounts";
+	}
+
+	@GetMapping("/sales")
+	public String salePage() {
+		return "sales";
 	}
 }

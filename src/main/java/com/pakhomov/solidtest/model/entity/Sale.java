@@ -1,4 +1,4 @@
-package com.pakhomov.solidtest.model;
+package com.pakhomov.solidtest.model.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -14,13 +14,24 @@ public class Sale {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToOne
+	@OneToMany
 	@NotNull
 	private List<Position> positions;
+
+	private Double amount;
+
+	private Double amountWithDiscount;
 
 	private LocalDateTime date;
 
 	public Sale() {
+	}
+
+	public Sale(@NotNull List<Position> positions, Double amount, Double amountWithDiscount, LocalDateTime date) {
+		this.positions = positions;
+		this.amount = amount;
+		this.amountWithDiscount = amountWithDiscount;
+		this.date = date;
 	}
 
 	public Sale(List<Position> positions, LocalDateTime date) {
@@ -52,6 +63,22 @@ public class Sale {
 		this.date = date;
 	}
 
+	public Double getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Double amount) {
+		this.amount = amount;
+	}
+
+	public Double getAmountWithDiscount() {
+		return amountWithDiscount;
+	}
+
+	public void setAmountWithDiscount(Double amountWithDiscount) {
+		this.amountWithDiscount = amountWithDiscount;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -59,11 +86,13 @@ public class Sale {
 		Sale sale = (Sale) o;
 		return Objects.equals(id, sale.id) &&
 				Objects.equals(positions, sale.positions) &&
+				Objects.equals(amount, sale.amount) &&
+				Objects.equals(amountWithDiscount, sale.amountWithDiscount) &&
 				Objects.equals(date, sale.date);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, positions, date);
+		return Objects.hash(id, positions, amount, amountWithDiscount, date);
 	}
 }

@@ -7,13 +7,16 @@ class RestService {
     }
 
     getListByPage(currentPage) {
-        let productList;
+        if (currentPage > this.getCountOfPages()) {
+            throw "Current page too more";
+        }
+        let objectList;
         let xmlhttp = new XMLHttpRequest();
 
         xmlhttp.onreadystatechange = function () {
             if (xmlhttp.readyState === XMLHttpRequest.DONE) {
                 if (xmlhttp.status === 200) {
-                    productList = JSON.parse(xmlhttp.responseText);
+                    objectList = JSON.parse(xmlhttp.responseText);
                 } else {
                     console.log('getListByPage');
                 }
@@ -23,7 +26,7 @@ class RestService {
         xmlhttp.open("GET", this.urlPrefix + "?page=" + currentPage, false);
         xmlhttp.send();
 
-        return productList;
+        return objectList;
     }
 
     getCountOfPages() {

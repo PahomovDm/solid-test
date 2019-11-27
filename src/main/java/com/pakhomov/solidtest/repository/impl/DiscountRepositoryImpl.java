@@ -1,6 +1,6 @@
 package com.pakhomov.solidtest.repository.impl;
 
-import com.pakhomov.solidtest.model.Discount;
+import com.pakhomov.solidtest.model.entity.Discount;
 import com.pakhomov.solidtest.repository.DiscountRepository;
 import org.springframework.stereotype.Repository;
 

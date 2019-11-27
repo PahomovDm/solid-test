@@ -1,11 +1,13 @@
 package com.pakhomov.solidtest.component;
 
-import com.pakhomov.solidtest.model.Discount;
+import com.pakhomov.solidtest.model.entity.Discount;
 import com.pakhomov.solidtest.service.DiscountService;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
+@EnableScheduling
 public class DiscountScheduler {
 
 	private final DiscountService discountService;

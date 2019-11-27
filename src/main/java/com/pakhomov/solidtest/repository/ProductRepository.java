@@ -1,6 +1,6 @@
 package com.pakhomov.solidtest.repository;
 
-import com.pakhomov.solidtest.model.Product;
+import com.pakhomov.solidtest.model.entity.Product;
 
 import java.util.List;
 

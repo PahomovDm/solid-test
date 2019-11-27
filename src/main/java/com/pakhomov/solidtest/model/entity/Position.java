@@ -1,4 +1,4 @@
-package com.pakhomov.solidtest.model;
+package com.pakhomov.solidtest.model.entity;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -11,6 +11,7 @@ public class Position {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@OneToOne
 	private Product product;
 
 	private Integer number;
@@ -52,13 +53,11 @@ public class Position {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		Position position = (Position) o;
-		return Objects.equals(id, position.id) &&
-				Objects.equals(product, position.product) &&
-				Objects.equals(number, position.number);
+		return Objects.equals(product.getId(), position.product.getId());
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, product, number);
+		return Objects.hash(product);
 	}
 }
