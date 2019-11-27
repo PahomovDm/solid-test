@@ -1,9 +1,12 @@
 package com.pakhomov.solidtest.service.impl;
 
 import com.pakhomov.solidtest.exception.EmptyShoppingCartException;
+import com.pakhomov.solidtest.model.entity.Discount;
+import com.pakhomov.solidtest.model.entity.Position;
 import com.pakhomov.solidtest.model.entity.Sale;
 import com.pakhomov.solidtest.model.entity.ShoppingCart;
 import com.pakhomov.solidtest.repository.SaleRepository;
+import com.pakhomov.solidtest.service.DiscountService;
 import com.pakhomov.solidtest.service.SaleService;
 import com.pakhomov.solidtest.service.ShoppingCartService;
 import org.springframework.stereotype.Service;
@@ -20,9 +23,12 @@ public class SaleServiceImpl implements SaleService {
 
 	private final ShoppingCartService shoppingCartService;
 
-	public SaleServiceImpl(SaleRepository saleRepository, ShoppingCartService shoppingCartService) {
+	private final DiscountService discountService;
+
+	public SaleServiceImpl(SaleRepository saleRepository, ShoppingCartService shoppingCartService, DiscountService discountService) {
 		this.saleRepository = saleRepository;
 		this.shoppingCartService = shoppingCartService;
+		this.discountService = discountService;
 	}
 
 	@Override
@@ -32,9 +38,20 @@ public class SaleServiceImpl implements SaleService {
 			throw new EmptyShoppingCartException();
 		}
 
+		Discount currentDiscount = discountService.getCurrentDiscount();
+		double saleAmount = 0;
+		double discountAmount = 0;
 
+		for (Position position : shoppingCart.getPositionList()) {
+			if (position.getProduct().getId().equals(currentDiscount.getProduct().getId())) {
+				saleAmount += (100 - currentDiscount.getSize()) / 100.0 * position.getProduct().getPrice() * position.getNumber();
+				discountAmount += position.getProduct().getPrice() / 100 * currentDiscount.getSize() * position.getNumber();
+			} else {
+				saleAmount += position.getProduct().getPrice() * position.getNumber();
+			}
+		}
 
-		Sale sale = new Sale(shoppingCart.getPositionList(), LocalDateTime.now());
+		Sale sale = new Sale(shoppingCart.getPositionList(), saleAmount, discountAmount, LocalDateTime.now());
 		shoppingCartService.clearShoppingCartBySessionID(sessionID);
 		saleRepository.addSale(sale);
 	}

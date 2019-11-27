@@ -19,8 +19,13 @@ public class DiscountServiceImpl implements DiscountService {
 	}
 
 	@Override
-	public Discount getLastDiscount() {
-		return discountRepository.getLastDiscount();
+	public Discount getCurrentDiscount() {
+		Discount discount = discountRepository.getLastDiscount();
+		if (discount == null) {
+			discountRepository.createRandomProductDiscountWithMinAndMaxPercent(Discount.MIN_DISCOUNT_PERCENT, Discount.MAX_DISCOUNT_PERCENT);
+			return discountRepository.getLastDiscount();
+		}
+		return discount;
 	}
 
 	public void createRandomProductDiscountWithMinAndMaxPercent(int minDiscountPercent, int maxDiscountPercent) {

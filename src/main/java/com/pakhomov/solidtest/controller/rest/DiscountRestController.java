@@ -20,7 +20,7 @@ public class DiscountRestController {
 	}
 
 	@GetMapping
-	private ResponseEntity<List<Discount>> lastDiscount(
+	private ResponseEntity<List<Discount>> getDiscountList(
 			@RequestParam(name = "page", required = false) Integer page) {
 		return ResponseEntity.ok(discountService.getDiscountsOnPage(page, COUNT_ON_PAGE));
 	}
@@ -33,6 +33,11 @@ public class DiscountRestController {
 		} else {
 			return ResponseEntity.ok(Double.valueOf(Math.ceil(countOfProducts.doubleValue() / COUNT_ON_PAGE)).longValue());
 		}
+	}
+
+	@GetMapping("/current")
+	private ResponseEntity<Discount> getCurrentDiscount() {
+		return ResponseEntity.ok(discountService.getCurrentDiscount());
 	}
 
 }

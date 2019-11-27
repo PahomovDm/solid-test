@@ -5,7 +5,13 @@ class SalePageService extends PageService {
 
     static parseJsonToHtmlTable(productJson) {
         let htmlRows = "";
-        productJson.forEach(sale => htmlRows += `<tr><td>${sale.id}</td><td>${new Date(sale.date).toLocaleString()}</td><td>${SalePageService.parsePositionList(sale.positions)}</td><td>Сумма товаров и скидка</td><td></tr>`);
+        productJson.forEach(
+            sale => htmlRows +=
+                `<tr>
+                    <td>${sale.id}</td><td>${new Date(sale.date).toLocaleString()}</td>
+                    <td>${SalePageService.parsePositionList(sale.positions)}</td>
+                    <td>${(sale.amount).toFixed(2)} &#8381 (Скидка ${sale.amountWithDiscount !== undefined ? sale.amountWithDiscount.toFixed(2) : 0} &#8381)</td>
+                </tr>`);
         return htmlRows;
     }
 
