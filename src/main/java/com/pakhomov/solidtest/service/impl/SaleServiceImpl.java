@@ -1,14 +1,12 @@
 package com.pakhomov.solidtest.service.impl;
 
 import com.pakhomov.solidtest.exception.EmptyShoppingCartException;
-import com.pakhomov.solidtest.model.entity.Discount;
-import com.pakhomov.solidtest.model.entity.Position;
-import com.pakhomov.solidtest.model.entity.Sale;
-import com.pakhomov.solidtest.model.entity.ShoppingCart;
+import com.pakhomov.solidtest.model.entity.*;
 import com.pakhomov.solidtest.repository.SaleRepository;
 import com.pakhomov.solidtest.service.DiscountService;
 import com.pakhomov.solidtest.service.SaleService;
 import com.pakhomov.solidtest.service.ShoppingCartService;
+import com.pakhomov.solidtest.service.StatisticService;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -25,10 +23,14 @@ public class SaleServiceImpl implements SaleService {
 
 	private final DiscountService discountService;
 
-	public SaleServiceImpl(SaleRepository saleRepository, ShoppingCartService shoppingCartService, DiscountService discountService) {
+	private final StatisticService statisticService;
+
+	public SaleServiceImpl(SaleRepository saleRepository, ShoppingCartService shoppingCartService,
+						   DiscountService discountService, StatisticService statisticService) {
 		this.saleRepository = saleRepository;
 		this.shoppingCartService = shoppingCartService;
 		this.discountService = discountService;
+		this.statisticService = statisticService;
 	}
 
 	@Override
@@ -54,6 +56,7 @@ public class SaleServiceImpl implements SaleService {
 		Sale sale = new Sale(shoppingCart.getPositionList(), saleAmount, discountAmount, LocalDateTime.now());
 		shoppingCartService.clearShoppingCartBySessionID(sessionID);
 		saleRepository.addSale(sale);
+		statisticService.addSaleToStatistic(sale);
 	}
 
 	@Override

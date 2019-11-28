@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface DiscountRepository {
 
-	Discount getLastDiscount();
+	Discount getCurrentHourDiscount();
 
 	void createRandomProductDiscountWithMinAndMaxPercent(int minDiscountPercent, int maxDiscountPercent);
 

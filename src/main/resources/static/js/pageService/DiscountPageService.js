@@ -7,7 +7,7 @@ class DiscountPageService extends PageService {
 
     static parseJsonToHtmlTable(discountJson) {
         let htmlRows = "";
-        discountJson.forEach(discount => htmlRows += `<tr><td>${discount.id}</td><td>${new Date(discount.startTime).toLocaleString()}</td><td>${discount.product.name}</td><td>${discount.size}%</td><td></td></tr>`);
+        discountJson.forEach(discount => htmlRows += `<tr><td>${discount.id}</td><td>${new Date(discount.startTime).toLocaleString()}</td><td>${discount.product.name}</td><td>${discount.size}%</td><td>${((100 - discount.size) / 100 * discount.product.price).toFixed(2)}</td></tr>`);
         return htmlRows;
     }
 }

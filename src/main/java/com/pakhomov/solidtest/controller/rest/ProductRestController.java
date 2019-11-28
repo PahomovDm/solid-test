@@ -1,5 +1,6 @@
 package com.pakhomov.solidtest.controller.rest;
 
+import com.pakhomov.solidtest.model.dto.ProductInformationDto;
 import com.pakhomov.solidtest.model.entity.Product;
 import com.pakhomov.solidtest.service.ProductService;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +21,7 @@ public class ProductRestController {
     }
 
     @GetMapping
-    private ResponseEntity<List<Product>> getListProduct(
-            @RequestParam(name = "page", required = false) Integer page) {
+    private ResponseEntity<List<Product>> getListProduct(@RequestParam(name = "page", required = false) Integer page) {
         if (page == null) {
             return ResponseEntity.ok(productService.getProductsOnPage(1, COUNT_ON_PAGE));
         }
@@ -48,5 +48,15 @@ public class ProductRestController {
         } else {
             return ResponseEntity.ok(Double.valueOf(Math.ceil(countOfProducts.doubleValue() / COUNT_ON_PAGE)).longValue());
         }
+    }
+
+    @GetMapping("/information")
+    private ResponseEntity<ProductInformationDto> getListProductInformationDto(
+            @RequestParam(name = "id") Long productId) {
+        ProductInformationDto productInformationDto = productService.getProductInformationByProductId(productId);
+        if (productInformationDto == null || productInformationDto.getNumber() == null) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(productInformationDto);
     }
 }

@@ -21,7 +21,7 @@ public class DiscountRepositoryImpl implements DiscountRepository {
 	}
 
 	@Override
-	public Discount getLastDiscount() {
+	public Discount getCurrentHourDiscount() {
 		return entityManager.createQuery("from Discount where startTime = (select max(startTime) from Discount)", Discount.class).getSingleResult();
 	}
 
@@ -36,12 +36,11 @@ public class DiscountRepositoryImpl implements DiscountRepository {
 	}
 
 
-
 	@Override
 	public List<Discount> getDiscountOnPage(int pageIndex, int countOnPage) {
-		Query query =  entityManager.createQuery("from Discount order by id", Discount.class);
+		Query query = entityManager.createQuery("from Discount order by id", Discount.class);
 		query.setMaxResults(countOnPage);
-		query.setFirstResult((pageIndex-1) * countOnPage);
+		query.setFirstResult((pageIndex - 1) * countOnPage);
 		return query.getResultList();
 	}
 }

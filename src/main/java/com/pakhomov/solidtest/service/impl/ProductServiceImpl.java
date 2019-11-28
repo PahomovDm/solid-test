@@ -1,5 +1,6 @@
 package com.pakhomov.solidtest.service.impl;
 
+import com.pakhomov.solidtest.model.dto.ProductInformationDto;
 import com.pakhomov.solidtest.model.entity.Product;
 import com.pakhomov.solidtest.repository.ProductRepository;
 import com.pakhomov.solidtest.service.ProductService;
@@ -36,5 +37,10 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Long getCountOfProducts() {
 		return productRepository.getCountOfProducts();
+	}
+
+	@Override
+	public ProductInformationDto getProductInformationByProductId(Long productId) {
+		return productRepository.getProductInformationByProductId(productId);
 	}
 }

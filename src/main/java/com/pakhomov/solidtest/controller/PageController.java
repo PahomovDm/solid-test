@@ -20,4 +20,9 @@ public class PageController {
 	public String salePage() {
 		return "sales";
 	}
+
+	@GetMapping("/statistics")
+	public String statisticPage() {
+		return "statistics";
+	}
 }

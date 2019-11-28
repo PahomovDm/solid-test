@@ -6,15 +6,15 @@ class ProductPageService extends PageService{
 
     loadTable() {
         super.loadTable();
-        this.setOnclickToEditButton();
+        this.setEvents();
     }
 
     loadPagination(currentPage) {
         super.loadPagination(currentPage);
-        this.setOnclickToEditButton();
+        this.setEvents();
     }
 
-    setOnclickToEditButton() {
+    setEvents() {
         const thisObject = this;
 
         Array.from(document.getElementsByClassName("edit")).forEach((element) => {
@@ -22,11 +22,18 @@ class ProductPageService extends PageService{
                 thisObject.openEditForm(this.parentElement.parentElement.childNodes);
             });
         });
+
+        Array.from(document.getElementsByClassName("information")).forEach((element) => {
+            element.addEventListener('click', function (e) {
+                thisObject.showInformationByProductId(this);
+            });
+        });
     }
 
     static parseJsonToHtmlTable(productJson) {
         let htmlRows = "";
-        productJson.forEach(product => htmlRows += `<tr><td>${product.id}</td><td>${product.name}</td><td>${product.price}  &#8381</td><td><button class="edit btn btn-primary">Edit</button></td></tr>`);
+        productJson.forEach(product => htmlRows +=
+            `<tr><td>${product.id}</td><td class="information">${product.name}</td><td>${product.price}</td><td><button class="edit btn btn-primary">Edit</button></td></tr>`);
         return htmlRows;
     }
 
@@ -60,7 +67,7 @@ class ProductPageService extends PageService{
         childNodes[2].innerHTML = editPrice;
         childNodes[3].innerHTML = `<button class="edit btn btn-primary">Edit</button>`;
 
-        this.setOnclickToEditButton();
+        this.setEvents();
     }
 
     addProduct() {
@@ -93,16 +100,28 @@ class ProductPageService extends PageService{
         this.restService.updateProduct(data);
         this.cancelEditFormProduct(childNodes, editName, editPrice);
     }
+
+    showInformationByProductId(element) {
+        let productInformation;
+        let htmlTitle;
+        try {
+            productInformation = this.restService.informationByProductId(element.parentElement.childNodes[0].innerText);
+            htmlTitle = `Кол-во проданных товаров - ${productInformation.number}\nПоследняя продажа - ${new Date(productInformation.lastSale).toLocaleString()}`;
+        } catch (e) {
+            htmlTitle = `Информации о продажах нет`;
+        }
+        element.title = htmlTitle;
+    }
 }
 
 {
-    const productService = new ProductPageService();
+    const productPageService = new ProductPageService();
 
     document.addEventListener('DOMContentLoaded', function () {
-        productService.loadTable();
+        productPageService.loadTable();
 
         document.getElementById("send-new-product").addEventListener('click', function (e) {
-            productService.addProduct();
+            productPageService.addProduct();
         });
     }, false);
 }

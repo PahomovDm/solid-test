@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Скидки</title>
+    <title>Статистика</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
@@ -21,14 +21,14 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/">Товары</a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/discounts">Скидки<span class="sr-only">(current)</span></a>
+                <li class="nav-item">
+                    <a class="nav-link" href="/discounts">Скидки</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/sales">Продажи</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/statistics">Отчет</a>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/statistics">Статистика<span class="sr-only">(current)</span></a>
                 </li>
             </ul>
         </div>
@@ -43,11 +43,13 @@
                     <table class="table table-striped table-sm">
                         <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Время скидки</th>
-                            <th>Продукт</th>
-                            <th>Размер скидки</th>
-                            <th>Цена по скидке</th>
+                            <th>Время</th>
+                            <th>Количество чеков</th>
+                            <th>Общая стоимость чеков</th>
+                            <th>Стоимость среднего чека</th>
+                            <th>Сумма скидок</th>
+                            <th>Общая стоимость чеков со учетом скидок</th>
+                            <th>Стоимость среднего чека со учетом скидок</th>
                         </tr>
                         </thead>
                         <tbody id="tableBody">
@@ -75,8 +77,8 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 <script src="js/restService/RestService.js"></script>
-<script src="js/restService/DiscountRestService.js"></script>
+<script src="js/restService/StatisticRestService.js"></script>
 <script src="js/pageService/PageService.js"></script>
 <script src="js/pageService/PaginationService.js"></script>
-<script src="js/pageService/DiscountPageService.js"></script>
+<script src="js/pageService/StatisticPageService.js"></script>
 </html>

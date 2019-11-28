@@ -10,7 +10,7 @@ class SalePageService extends PageService {
                 `<tr>
                     <td>${sale.id}</td><td>${new Date(sale.date).toLocaleString()}</td>
                     <td>${SalePageService.parsePositionList(sale.positions)}</td>
-                    <td>${(sale.amount).toFixed(2)} &#8381 (Скидка ${sale.amountWithDiscount !== undefined ? sale.amountWithDiscount.toFixed(2) : 0} &#8381)</td>
+                    <td>${(sale.amount).toFixed(2)} &#8381 (С учетом скидки ${sale.amountWithDiscount !== undefined ? sale.amountWithDiscount.toFixed(2) : 0} &#8381)</td>
                 </tr>`);
         return htmlRows;
     }
