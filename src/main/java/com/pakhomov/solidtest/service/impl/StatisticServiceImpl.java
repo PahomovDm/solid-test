@@ -1,12 +1,12 @@
 package com.pakhomov.solidtest.service.impl;
 
+import com.pakhomov.solidtest.model.dto.StatisticInformationDto;
 import com.pakhomov.solidtest.model.entity.Sale;
 import com.pakhomov.solidtest.model.entity.Statistic;
 import com.pakhomov.solidtest.repository.StatisticRepository;
 import com.pakhomov.solidtest.service.StatisticService;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ public class StatisticServiceImpl implements StatisticService {
 	}
 
 	@Override
-	public List<Statistic> getStatisticsOnPage(int pageIndex, int countOnPage) {
+	public List<StatisticInformationDto> getStatisticsOnPage(int pageIndex, int countOnPage) {
 		return statisticRepository.getStatisticsOnPage(pageIndex, countOnPage);
 	}
 

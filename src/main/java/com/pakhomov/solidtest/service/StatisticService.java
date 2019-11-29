@@ -1,5 +1,6 @@
 package com.pakhomov.solidtest.service;
 
+import com.pakhomov.solidtest.model.dto.StatisticInformationDto;
 import com.pakhomov.solidtest.model.entity.Sale;
 import com.pakhomov.solidtest.model.entity.Statistic;
 
@@ -11,7 +12,7 @@ public interface StatisticService {
 
 	void updateStatistic(Statistic statistic);
 
-	List<Statistic> getStatisticsOnPage(int pageIndex, int countOnPage);
+	List<StatisticInformationDto> getStatisticsOnPage(int pageIndex, int countOnPage);
 
 	Long getCountOfStatistics();
 

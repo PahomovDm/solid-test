@@ -48,7 +48,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 		ProductInformationDto productInformationDto = null;
 		Query query = entityManager.createQuery(
 				"select new com.pakhomov.solidtest.model.dto.ProductInformationDto(pr.id, sum(p.number), max(s.date)) " +
-						"from Sale s left join s.positions p left Product pr on pr.id = p.product " +
+						"from Sale s left join s.positions p left join Product pr on pr.id = p.product " +
 						"where pr.id = :productId " +
 						"group by pr.id", ProductInformationDto.class).setParameter("productId", productId);
 		try {

@@ -5,9 +5,35 @@ class StatisticPageService extends PageService {
 
     }
 
-    static parseJsonToHtmlTable(discountJson) {
+    static parseJsonToHtmlTable(statisticsJson) {
         let htmlRows = "";
-        discountJson.forEach(discount => htmlRows += `<tr><td></td><td></td><td></td><td></td><td></td></tr>`);
+        statisticsJson.forEach(statistic => {
+                if (statistic.numberOfSales === 0) {
+                    const temp = 0;
+                    htmlRows +=
+                        `<tr>` +
+                        `<td>${new Date(statistic.startingTime).toLocaleString()}</td>` +
+                        `<td>${temp}</td>` +
+                        `<td>${temp}</td>` +
+                        `<td>${temp}</td>` +
+                        `<td>${temp}</td>` +
+                        `<td>${temp}</td>` +
+                        `<td>${temp}</td>` +
+                        `</tr>`
+                } else {
+                    htmlRows +=
+                        `<tr>` +
+                        `<td>${new Date(statistic.startingTime).toLocaleString()}</td>` +
+                        `<td>${statistic.numberOfSales}</td>` +
+                        `<td>${statistic.amountValueOfChecks + statistic.discountAmount}</td>` +
+                        `<td>${(statistic.amountValueOfChecks + statistic.discountAmount) / statistic.numberOfSales}</td>` +
+                        `<td>${statistic.discountAmount}</td>` +
+                        `<td>${statistic.amountValueOfChecks}</td>` +
+                        `<td>${statistic.amountValueOfChecks / statistic.numberOfSales}</td>` +
+                        `</tr>`
+                }
+            }
+        );
         return htmlRows;
     }
 }

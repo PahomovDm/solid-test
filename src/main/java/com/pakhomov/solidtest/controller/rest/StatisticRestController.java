@@ -1,5 +1,6 @@
 package com.pakhomov.solidtest.controller.rest;
 
+import com.pakhomov.solidtest.model.dto.StatisticInformationDto;
 import com.pakhomov.solidtest.model.entity.Statistic;
 import com.pakhomov.solidtest.service.StatisticService;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class StatisticRestController {
 	}
 
 	@GetMapping
-	private ResponseEntity<List<Statistic>> getListProduct(@RequestParam(name = "page", required = false) Integer page) {
+	private ResponseEntity<List<StatisticInformationDto>> getListProduct(@RequestParam(name = "page", required = false) Integer page) {
 		if (page == null) {
 			return ResponseEntity.ok(statisticService.getStatisticsOnPage(1, COUNT_ON_PAGE));
 		}

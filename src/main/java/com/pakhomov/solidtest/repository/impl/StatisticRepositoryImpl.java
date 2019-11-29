@@ -1,5 +1,6 @@
 package com.pakhomov.solidtest.repository.impl;
 
+import com.pakhomov.solidtest.model.dto.StatisticInformationDto;
 import com.pakhomov.solidtest.model.entity.Statistic;
 import com.pakhomov.solidtest.repository.StatisticRepository;
 import org.springframework.stereotype.Repository;
@@ -30,8 +31,11 @@ public class StatisticRepositoryImpl implements StatisticRepository {
 	}
 
 	@Override
-	public List<Statistic> getStatisticsOnPage(int pageIndex, int countOnPage) {
-		Query query = entityManager.createQuery("from Statistic order by id", Statistic.class);
+	public List<StatisticInformationDto> getStatisticsOnPage(int pageIndex, int countOnPage) {
+		Query query = entityManager.createQuery(
+				"select new com.pakhomov.solidtest.model.dto.StatisticInformationDto(" +
+						"		st.startingTime, count(s.id), sum(s.amount), sum (s.amountWithDiscount)) from Statistic st " +
+						"	left join st.sales s group by st.id", StatisticInformationDto.class);
 		query.setMaxResults(countOnPage);
 		query.setFirstResult((pageIndex - 1) * countOnPage);
 		return query.getResultList();
@@ -54,4 +58,6 @@ public class StatisticRepositoryImpl implements StatisticRepository {
 		}
 		return statistic;
 	}
+
+
 }

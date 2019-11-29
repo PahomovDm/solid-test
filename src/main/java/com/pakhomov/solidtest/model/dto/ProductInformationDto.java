@@ -20,23 +20,11 @@ public class ProductInformationDto {
 		return id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public Long getNumber() {
 		return number;
 	}
 
-	public void setNumber(Long number) {
-		this.number = number;
-	}
-
 	public LocalDateTime getLastSale() {
 		return lastSale;
-	}
-
-	public void setLastSale(LocalDateTime lastSale) {
-		this.lastSale = lastSale;
 	}
 }
