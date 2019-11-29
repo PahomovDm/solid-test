@@ -3,7 +3,10 @@ package com.pakhomov.solidtest.controller.rest;
 import com.pakhomov.solidtest.model.entity.Discount;
 import com.pakhomov.solidtest.service.DiscountService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -21,7 +24,10 @@ public class DiscountRestController {
 
 	@GetMapping
 	private ResponseEntity<List<Discount>> getDiscountList(
-			@RequestParam(name = "page", required = false) Integer page) {
+			@RequestParam(name = "page", required = false, defaultValue = "1") Integer page) {
+		if (page < 1) {
+			return ResponseEntity.noContent().build();
+		}
 		return ResponseEntity.ok(discountService.getDiscountsOnPage(page, COUNT_ON_PAGE));
 	}
 

@@ -9,10 +9,8 @@ class ProductRestService extends RestService {
 
         xmlhttp.onreadystatechange = function () {
             if (xmlhttp.readyState === XMLHttpRequest.DONE) {
-                if (xmlhttp.status === 200) {
-
-                } else {
-                    console.log("sendNewProduct")
+                if (xmlhttp.status === 400) {
+                    console.log("Bad request");
                 }
             }
         };

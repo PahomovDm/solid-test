@@ -1,6 +1,7 @@
 package com.pakhomov.solidtest.model.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity
@@ -11,6 +12,7 @@ public class Position {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@NotNull
 	@OneToOne
 	private Product product;
 

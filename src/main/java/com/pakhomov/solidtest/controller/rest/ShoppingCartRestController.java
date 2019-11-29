@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
+import static java.util.Objects.isNull;
+
 @RestController
 @RequestMapping("/api/shoppingCart")
 public class ShoppingCartRestController {
@@ -35,6 +37,10 @@ public class ShoppingCartRestController {
 
 	@PostMapping
 	private ResponseEntity<ShoppingCart> addPositionToShoppingCart(@RequestBody Position position, HttpSession session) {
+		if (isNull(position.getProduct()) || isNull(position.getProduct().getId())
+				|| isNull(position.getNumber()) || position.getNumber() < 1) {
+			return ResponseEntity.badRequest().build();
+		}
 		shoppingCartService.addPositionToShoppingCartBySessionID(session.getId(), position);
 		ShoppingCart shoppingCart = shoppingCartService.getShoppingCartBySessionID(session.getId());
 		return ResponseEntity.ok(shoppingCart);
@@ -46,7 +52,7 @@ public class ShoppingCartRestController {
 			saleService.createSaleByShoppingCartSessionID(session.getId());
 			return ResponseEntity.ok().build();
 		} catch (EmptyShoppingCartException e) {
-			return ResponseEntity.badRequest().build();
+			return ResponseEntity.noContent().build();
 		}
 	}
 }

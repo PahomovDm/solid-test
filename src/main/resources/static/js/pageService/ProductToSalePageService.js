@@ -23,7 +23,7 @@ class ProductToSalePageService {
 
         const currentObject = this;
 
-        Array.from(document.getElementsByClassName("to-shopping-cart")).forEach((element) => {
+        Array.from(document.getElementsByClassName("to-shopping-cart btn btn-primary btn-sm")).forEach((element) => {
             element.addEventListener('click', function (e) {
                 currentObject.sendPositionToCart(this.parentElement.parentElement.childNodes);
             });
@@ -41,10 +41,13 @@ class ProductToSalePageService {
         list.forEach(product => {
             if (product.id !== currentDiscount.product.id) {
                 htmlRows +=
-                    `<tr><td>${product.id}</td><td>${product.name}</td><td>${product.price}  &#8381</td><td><input type="number"></td><td><input type="button" class="to-shopping-cart" value="В корзину"></td></tr>`;
+                    `<tr><td>${product.id}</td><td>${product.name}</td><td>${product.price}  &#8381</td><td><input type="number">` +
+                    `</td><td><input type="button" class="to-shopping-cart btn btn-primary btn-sm" value="В корзину"></td></tr>`;
             } else {
                 htmlRows +=
-                    `<tr><td>${product.id}</td><td style="color: coral;">${product.name}</td><td style="color: coral;">${((100 - currentDiscount.size) / 100 * product.price).toFixed(2)} &#8381</td><td><input type="number"></td><td><input type="button" class="to-shopping-cart" value="В корзину"></td></tr>`;
+                    `<tr><td>${product.id}</td><td style="color: coral;">${product.name}</td>` +
+                    `<td style="color: coral;">${((100 - currentDiscount.size) / 100 * product.price).toFixed(2)} &#8381</td>` +
+                    `<td><input type="number"></td><td><input type="button" class="to-shopping-cart btn btn-primary btn-sm" value="В корзину"></td></tr>`;
             }
 
     });
@@ -54,6 +57,19 @@ class ProductToSalePageService {
     sendPositionToCart(positionRow) {
         const productId = positionRow[0].innerText;
         const count = positionRow[3].childNodes[0].value;
+
+        let isValid = true;
+
+        if (count <= 0 || !Number.isInteger(parseInt(count))) {
+            positionRow[3].childNodes[0].style.borderColor = "#ce8cb0";
+            isValid = false;
+        } else {
+            positionRow[3].childNodes[0].style.borderColor = "";
+        }
+
+        if (!isValid) {
+            return;
+        }
 
         const data = JSON.stringify({
             product: {'id': productId},

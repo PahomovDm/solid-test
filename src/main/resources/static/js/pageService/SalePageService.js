@@ -7,11 +7,11 @@ class SalePageService extends PageService {
         let htmlRows = "";
         productJson.forEach(
             sale => htmlRows +=
-                `<tr>
-                    <td>${sale.id}</td><td>${new Date(sale.date).toLocaleString()}</td>
-                    <td>${SalePageService.parsePositionList(sale.positions)}</td>
-                    <td>${(sale.amount).toFixed(2)} &#8381 (С учетом скидки ${sale.amountWithDiscount !== undefined ? sale.amountWithDiscount.toFixed(2) : 0} &#8381)</td>
-                </tr>`);
+                `<tr>`+
+                    `<td>${sale.id}</td><td>${new Date(sale.date).toLocaleString()}</td>` +
+                    `<td>${SalePageService.parsePositionList(sale.positions)}</td>` +
+                    `<td>${(sale.amount).toFixed(2)} &#8381 (С учетом скидки в ${sale.amountWithDiscount !== undefined ? sale.amountWithDiscount.toFixed(2) : 0} &#8381)</td>` +
+                `</tr>`);
         return htmlRows;
     }
 

@@ -1,6 +1,7 @@
 package com.pakhomov.solidtest.model.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Objects;
 
@@ -11,6 +12,7 @@ public class ShoppingCart {
 	@Id
 	private String sessionId;
 
+	@NotNull
 	@OneToMany(cascade= CascadeType.ALL)
 	private List<Position> positionList;
 

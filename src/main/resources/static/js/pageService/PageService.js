@@ -20,6 +20,11 @@ class PageService {
         } else {
             currentPage = 1;
         }
+        if (currentPage < 1) {
+            currentPage = 1;
+        }
+
+        this.setPageParamToUrl(currentPage);
 
         const tableContent = this.restService.getListByPage(currentPage);
         if (tableContent !== undefined) {
@@ -45,13 +50,19 @@ class PageService {
             this.loadTable();
             return;
         }
-        const url = new URL(window.location.href);
-        const params = new URLSearchParams(url.search.slice(1));
-
-        params.set("page", page);
-
-        const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + params.toString();
-        window.history.pushState({path: newUrl}, '', newUrl);
+        this.setPageParamToUrl(page);
         this.loadTable();
+    }
+
+    setPageParamToUrl(pageNumber) {
+        if (pageNumber !== 1) {
+            const url = new URL(window.location.href);
+            const params = new URLSearchParams(url.search.slice(1));
+
+            params.set("page", pageNumber);
+
+            const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + params.toString();
+            window.history.pushState({path: newUrl}, '', newUrl);
+        }
     }
 }

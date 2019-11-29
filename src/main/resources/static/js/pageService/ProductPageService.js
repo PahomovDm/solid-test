@@ -1,4 +1,4 @@
-class ProductPageService extends PageService{
+class ProductPageService extends PageService {
 
     constructor() {
         super(new ProductRestService("/api/products"), ProductPageService.parseJsonToHtmlTable);
@@ -24,7 +24,7 @@ class ProductPageService extends PageService{
         });
 
         Array.from(document.getElementsByClassName("information")).forEach((element) => {
-            element.addEventListener('click', function (e) {
+            element.addEventListener('mouseover', function (e) {
                 thisObject.showInformationByProductId(this);
             });
         });
@@ -33,7 +33,7 @@ class ProductPageService extends PageService{
     static parseJsonToHtmlTable(productJson) {
         let htmlRows = "";
         productJson.forEach(product => htmlRows +=
-            `<tr><td>${product.id}</td><td class="information">${product.name}</td><td>${product.price}</td><td><button class="edit btn btn-primary">Edit</button></td></tr>`);
+            `<tr><td>${product.id}</td><td class="information">${product.name}</td><td>${product.price}</td><td><button class="edit btn btn-primary btn-sm">Edit</button></td></tr>`);
         return htmlRows;
     }
 
@@ -43,7 +43,7 @@ class ProductPageService extends PageService{
 
         childNodes[1].innerHTML = `<input id="editName" value='${editName}'/>`;
         childNodes[2].innerHTML = `<input id="editPrice" value='${editPrice}'/>`;
-        childNodes[3].innerHTML = `<button class="sendEdit btn btn-primary">Save</button><button class="cancel btn btn-primary">Cancel</button>`;
+        childNodes[3].innerHTML = `<button class="sendEdit btn btn-primary btn-sm">Save</button><button class="cancel btn btn-primary btn-sm">Cancel</button>`;
 
         const editButtons = document.getElementsByClassName("sendEdit");
         const cancelButtons = document.getElementsByClassName("cancel");
@@ -65,7 +65,7 @@ class ProductPageService extends PageService{
     cancelEditFormProduct(childNodes, editName, editPrice) {
         childNodes[1].innerHTML = editName;
         childNodes[2].innerHTML = editPrice;
-        childNodes[3].innerHTML = `<button class="edit btn btn-primary">Edit</button>`;
+        childNodes[3].innerHTML = `<button class="edit btn btn-primary btn-sm">Edit</button>`;
 
         this.setEvents();
     }
@@ -73,6 +73,24 @@ class ProductPageService extends PageService{
     addProduct() {
         const newProductName = document.getElementById("new-name").value;
         const newProductPrice = document.getElementById("new-price").value;
+        let isValid = true;
+
+        if (newProductName === '') {
+            document.getElementById("new-name").style.borderColor = "#ce8cb0";
+            isValid = false;
+        } else {
+            document.getElementById("new-name").style.borderColor = "";
+        }
+        if (newProductPrice <= 0) {
+            document.getElementById("new-price").style.borderColor = "#ce8cb0";
+            isValid = false;
+        } else {
+            document.getElementById("new-price").style.borderColor = "";
+        }
+
+        if (!isValid) {
+            return;
+        }
 
         const data = JSON.stringify({
             'name': newProductName,
@@ -90,6 +108,25 @@ class ProductPageService extends PageService{
         let editId = childNodes[0].outerText;
         let editName = childNodes[1].childNodes[0].value;
         let editPrice = childNodes[2].childNodes[0].value;
+
+        let isValid = true;
+
+        if (editName === '') {
+            document.getElementById("editName").style.borderColor = "#ce8cb0";
+            isValid = false;
+        } else {
+            document.getElementById("editName").style.borderColor = "";
+        }
+        if (editPrice <= 0) {
+            document.getElementById("editPrice").style.borderColor = "#ce8cb0";
+            isValid = false;
+        } else {
+            document.getElementById("editPrice").style.borderColor = "";
+        }
+
+        if (!isValid) {
+            return;
+        }
 
         let data = JSON.stringify({
             'id': editId,

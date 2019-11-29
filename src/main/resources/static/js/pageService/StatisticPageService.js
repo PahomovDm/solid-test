@@ -8,11 +8,16 @@ class StatisticPageService extends PageService {
     static parseJsonToHtmlTable(statisticsJson) {
         let htmlRows = "";
         statisticsJson.forEach(statistic => {
+            const nextHour = new Date(statistic.startingTime);
+            nextHour.setHours(nextHour.getHours() + 1);
+            nextHour.setMinutes(0);
+            nextHour.setSeconds(0);
+            const dateTd = `${new Date(statistic.startingTime).toLocaleString()} - ${nextHour.toLocaleTimeString()}`;
                 if (statistic.numberOfSales === 0) {
                     const temp = 0;
                     htmlRows +=
                         `<tr>` +
-                        `<td>${new Date(statistic.startingTime).toLocaleString()}</td>` +
+                        `<td>${dateTd}</td>` +
                         `<td>${temp}</td>` +
                         `<td>${temp}</td>` +
                         `<td>${temp}</td>` +
@@ -23,7 +28,7 @@ class StatisticPageService extends PageService {
                 } else {
                     htmlRows +=
                         `<tr>` +
-                        `<td>${new Date(statistic.startingTime).toLocaleString()}</td>` +
+                        `<td>${dateTd}</td>` +
                         `<td>${statistic.numberOfSales}</td>` +
                         `<td>${statistic.amountValueOfChecks + statistic.discountAmount}</td>` +
                         `<td>${(statistic.amountValueOfChecks + statistic.discountAmount) / statistic.numberOfSales}</td>` +
