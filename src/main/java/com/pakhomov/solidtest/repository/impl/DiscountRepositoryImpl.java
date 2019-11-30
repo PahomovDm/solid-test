@@ -5,12 +5,16 @@ import com.pakhomov.solidtest.repository.DiscountRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Repository
 public class DiscountRepositoryImpl implements DiscountRepository {
+
+	private final Logger logger = Logger.getLogger("com.pakhomov.solidtest.repository.impl.DiscountRepositoryImpl");
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -22,7 +26,13 @@ public class DiscountRepositoryImpl implements DiscountRepository {
 
 	@Override
 	public Discount getCurrentHourDiscount() {
-		return entityManager.createQuery("from Discount where startTime = (select max(startTime) from Discount)", Discount.class).getSingleResult();
+		Discount discount = null;
+		try {
+			discount = entityManager.createQuery("from Discount where startTime = (select max(startTime) from Discount)", Discount.class).getSingleResult();
+		} catch (NoResultException ex) {
+			logger.info(ex.getMessage());
+		}
+		return discount;
 	}
 
 	@Override

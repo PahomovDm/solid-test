@@ -13,7 +13,7 @@ public class ShoppingCart {
 	private String sessionId;
 
 	@NotNull
-	@OneToMany(cascade= CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Position> positionList;
 
 	public ShoppingCart() {

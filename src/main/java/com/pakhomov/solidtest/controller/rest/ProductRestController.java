@@ -44,7 +44,7 @@ public class ProductRestController {
 	@PostMapping("/add")
 	private ResponseEntity saveNewProduct(@RequestBody Product newProduct) {
 		if (!isNull(newProduct.getId()) || isNull(newProduct.getName()) || isNull(newProduct.getPrice())
-                || newProduct.getName().isEmpty() || newProduct.getPrice() < 0) {
+				|| newProduct.getName().isEmpty() || newProduct.getPrice() < 0) {
 			return ResponseEntity.badRequest().build();
 		}
 		productService.saveProduct(newProduct);

@@ -22,9 +22,9 @@ public class SaleRepositoryImpl implements SaleRepository {
 
 	@Override
 	public List<Sale> getSalesOnPage(int pageIndex, int countOnPage) {
-		Query query =  entityManager.createQuery("from Sale order by id", Sale.class);
+		Query query = entityManager.createQuery("from Sale order by id", Sale.class);
 		query.setMaxResults(countOnPage);
-		query.setFirstResult((pageIndex-1) * countOnPage);
+		query.setFirstResult((pageIndex - 1) * countOnPage);
 		return query.getResultList();
 	}
 

@@ -5,6 +5,8 @@ import com.pakhomov.solidtest.model.entity.Sale;
 import com.pakhomov.solidtest.model.entity.Statistic;
 import com.pakhomov.solidtest.repository.StatisticRepository;
 import com.pakhomov.solidtest.service.StatisticService;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -22,6 +24,7 @@ public class StatisticServiceImpl implements StatisticService {
 		this.statisticRepository = statisticRepository;
 	}
 
+	@EventListener(ApplicationReadyEvent.class)
 	@Override
 	public Statistic getCurrentStatistic() {
 		Statistic statistic = statisticRepository.getCurrentHourStatistic();
