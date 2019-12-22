@@ -28,7 +28,7 @@ class PageService {
 
         const tableContent = this.restService.getListByPage(currentPage);
         if (tableContent !== undefined) {
-            document.getElementById("tableBody").innerHTML = this.parser(this.restService.getListByPage(currentPage));
+            document.getElementById("tableBody").innerHTML = this.parser(tableContent);
         }
         this.loadPagination(currentPage);
     }

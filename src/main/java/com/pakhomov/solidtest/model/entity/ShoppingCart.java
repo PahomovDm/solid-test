@@ -14,6 +14,7 @@ public class ShoppingCart {
 
 	@NotNull
 	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "shopping_cart_id")
 	private List<Position> positionList;
 
 	public ShoppingCart() {

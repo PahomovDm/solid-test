@@ -16,6 +16,7 @@ public class Statistic {
 	private LocalDateTime startingTime;
 
 	@OneToMany
+	@JoinColumn(name = "statistic_id")
 	private List<Sale> sales;
 
 	public Statistic() {

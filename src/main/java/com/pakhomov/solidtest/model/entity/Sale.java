@@ -15,7 +15,7 @@ public class Sale {
 	private Long id;
 
 	@OneToMany
-	@NotNull
+	@JoinColumn(name = "sale_id")
 	private List<Position> positions;
 
 	private Double amount;
